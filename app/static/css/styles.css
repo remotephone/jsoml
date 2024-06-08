@@ -1,0 +1,89 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2C2A29; /* Dark warm background */
+    color: #F4EDE4; /* Warm light text */
+}
+
+h1, h2, h3 {
+    color: #FFA07A; /* Warm light salmon for headings */
+}
+
+textarea, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #504A48; /* Darker warm border */
+    background-color: #504A48; /* Dark warm elements background */
+    color: #F4EDE4; /* Warm light text */
+    border-radius: 5px;
+}
+
+button {
+    background-color: #DAA520; /* Warm gold for buttons */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #DAA520; /* Warm gold for buttons */
+}
+
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+    overflow: hidden; /* Prevent scrolling on the body directly */
+}
+
+#convertForm {
+    height: 90vh;
+    overflow: auto; /* Allows scrolling within the form if content overflows */
+    box-sizing: border-box; /* Include padding and border in the element's total dimensions */
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-height: 80%; /* Ensure it doesn't exceed the form's height */
+    box-sizing: border-box; /* Include padding in the height calculation */
+}
+
+.input-container, .output-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden; /* Prevent these containers from expanding beyond their allocated space */
+    box-sizing: border-box; /* Include padding and border */
+    flex-direction: column;
+    padding: 10px; /* Adjust padding as needed */
+    height: 100%; /* Ensure the container takes up the desired space */
+}
+
+#inputData, #outputData {
+    width: 100%; /* Make textarea take up all available width */
+    height: 100%; /* Make textarea take up all available height */
+    box-sizing: border-box; /* Include padding and border in the element's total dimensions */
+    margin: 0; /* Remove default margin */
+    resize: none; /* Optional: Prevent resizing */
+}
+.select-container {
+    width: 100%;
+}
+
+/* Responsive styles for desktop */
+@media (min-width: 768px) {
+    .content-container {
+        flex-direction: row;
+        height: 75vh; /* Adjusted for desktop */
+    }
+    .select-container {
+        width: 50%;
+    }
+}
+
+/* Responsive styles for narrow screens */
+@media (max-width: 767px) {
+    textarea, select, button {
+        min-height: 200px; /* Increase height for better usability on narrow screens */
+    }
+}
