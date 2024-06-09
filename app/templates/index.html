@@ -1,104 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ye Ol Switcheroo</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
-  </head>
-  <body>
-    <h2>Ye Ol Switcheroo</h2>
-    <form id="convertForm">
-      <div class="content-container">
-        <div class="input-container">
-          <h3>Input:</h3>
-          <textarea id="inputData" name="input_data" oninput="detectFormat()"></textarea>
-        </div>
-        <div class="output-container">
-          <h3>Output:</h3>
-          <textarea id="outputData" name="output_data" readonly></textarea>
-        </div>
-      </div>
-      <div id="detectedFormat">Detected Format: Unknown</div>
-      <!-- Display detected format here -->
-      <select id="inputFormat" name="input_format" hidden>
-        <option value="JSON">JSON</option>
-        <option value="TOML">TOML</option>
-        <option value="YAML">YAML</option>
-      </select><br />
-      <div class="select-container">
-          <fieldset>
-            <legend>Output Format:</legend>
-            <input type="radio" id="outputFormatJSON" name="output_format" value="JSON" checked />
-            <label for="outputFormatJSON">JSON</label><br />
-            <input type="radio" id="outputFormatTOML" name="output_format" value="TOML" />
-            <label for="outputFormatTOML">TOML</label><br />
-            <input type="radio" id="outputFormatYAML" name="output_format" value="YAML" />
-            <label for="outputFormatYAML">YAML</label><br />
-          </fieldset><br />
-        </div>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-    </form>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const outputFormatRadios = document.querySelectorAll('input[name="output_format"]')
-        outputFormatRadios.forEach((radio) => {
-          radio.addEventListener('change', convert)
-        })
-      })
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Selector</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100vh - 50px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
 
-      function detectFormat() {
-        const inputData = document.getElementById('inputData').value.trim()
-        const inputFormatSelect = document.getElementById('inputFormat')
-        const detectedFormatDisplay = document.getElementById('detectedFormat')
+<div class="navbar">
+  <a href="#" onclick="loadTool('jsoml')">jsoml switcher</a>
+  <a href="#" onclick="loadTool('traefik_cop')">Traefik Cop</a>
+  <a href="#" onclick="loadTool('tool3.html')">Tool 3</a>
+  <!-- Add more tools as needed -->
+</div>
 
-        fetch('/check_format', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain'
-          },
-          body: inputData
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok')
-            }
-            return response.json()
-          })
-          .then((data) => {
-            if (data.format === 'JSON' || data.format === 'YAML' || data.format === 'TOML') {
-              inputFormatSelect.value = data.format
-              detectedFormatDisplay.textContent = `Detected Format: ${data.format}`
-            } else {
-              inputFormatSelect.value = 'Unknown'
-              detectedFormatDisplay.textContent = 'Detected Format: Unknown'
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error)
-            inputFormatSelect.value = 'Unknown' // Fallback in case of error
-            detectedFormatDisplay.textContent = 'Detected Format: Unknown'
-          })
-      }
+<iframe id="toolFrame" src="tool1.html"></iframe>
 
-      function convert() {
-        var formData = new FormData()
-        formData.append('input_data', document.getElementById('inputData').value)
-        formData.append('input_format', document.getElementById('inputFormat').value)
-        var outputFormat = document.querySelector('input[name="output_format"]:checked').value
-        formData.append('output_format', outputFormat)
+<script>
+  function loadTool(toolUrl) {
+    document.getElementById('toolFrame').src = toolUrl;
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTool('jsoml'); // Automatically load the first tool when the page is ready
+  });
+</script>
 
-        fetch('/convert', {
-          method: 'POST',
-          body: formData
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            document.getElementById('outputData').value = data.output_data
-          })
-          .catch((error) => console.error('Error:', error))
-      }
-    </script>
-
-  </body>
+</body>
 </html>

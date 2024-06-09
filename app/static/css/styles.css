@@ -2,31 +2,31 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #2C2A29; /* Dark warm background */
-    color: #F4EDE4; /* Warm light text */
+    background-color: #0A2342; /* Deep ocean blue */
+    color: #E0F2F1; /* Soft moonlight white */
 }
 
 h1, h2, h3 {
-    color: #FFA07A; /* Warm light salmon for headings */
+    color: #5C7AEA; /* Soft moonlight blue for headings */
 }
 
 textarea, select, button {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #504A48; /* Darker warm border */
-    background-color: #504A48; /* Dark warm elements background */
-    color: #F4EDE4; /* Warm light text */
+    border: 1px solid #274156; /* Dark sandy border */
+    background-color: #274156; /* Dark sandy elements background */
+    color: #E0F2F1; /* Soft moonlight white */
     border-radius: 5px;
 }
 
 button {
-    background-color: #DAA520; /* Warm gold for buttons */
+    background-color: #4A90E2; /* Cool night sky blue for buttons */
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #DAA520; /* Warm gold for buttons */
+    background-color: #3D70AC; /* Darker shade of night sky blue for button hover */
 }
 
 html, body {

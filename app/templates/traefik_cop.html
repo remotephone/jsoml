@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traefik Cop</title>
+    <link rel="stylesheet" href="static/css/styles.css" />
+  </head>
+  <body>
+    <h2>Traefik Cop</h2>
+    <form id="convertForm">
+      <div class="content-container">
+        <div class="input-container">
+          <h3>Input:</h3>
+          <textarea id="inputData" name="input_data" oninput="detectFormat()"></textarea>
+        </div>
+        <div class="output-container">
+          <h3>Output:</h3>
+          <textarea id="outputData" name="output_data" readonly></textarea>
+        </div>
+      </div>
+      <div id="detectedFormat">Detected Format: Unknown</div>
+      <!-- Display detected format here -->
+      <select id="inputFormat" name="input_format" hidden>
+        <option value="JSON">JSON</option>
+        <option value="TOML">TOML</option>
+        <option value="YAML">YAML</option>
+      </select><br />
+      <div class="select-container">
+        <fieldset>
+          <legend>Options:</legend>
+          <div class="domain-name-container">
+            <label for="domainName">Domain Name:</label>
+            <input type="text" id="domainName" name="domain_name" value="example.com" />
+          </div>
+          <input type="checkbox" id="traefikHTTP" name="options" value="Traefik HTTP" />
+          <label for="traefikHTTP">Traefik HTTP</label><br />
+          <input type="checkbox" id="traefikHTTPS" name="options" value="Traefik HTTPS" />
+          <label for="traefikHTTPS">Traefik HTTPS</label><br />
+          <input type="checkbox" id="traefikNoAuth" name="options" value="Traefik NoAuth" />
+          <label for="traefikNoAuth">Traefik NoAuth</label><br />
+          <input type="checkbox" id="volume" name="options" value="Volume" />
+          <label for="volume">Volume</label><br />
+          <input type="checkbox" id="volumeNFS" name="options" value="Volume NFS" />
+          <label for="volumeNFS">Volume NFS</label><br />
+        </fieldset><br />
+      </div>
+    </form>
+    <script src="static/js/traefik_cop.js"></script>
+
+  </body>
+</html>
