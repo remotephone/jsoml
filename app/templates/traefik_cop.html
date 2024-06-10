@@ -19,13 +19,6 @@
           <textarea id="outputData" name="output_data" readonly></textarea>
         </div>
       </div>
-      <div id="detectedFormat">Detected Format: Unknown</div>
-      <!-- Display detected format here -->
-      <select id="inputFormat" name="input_format" hidden>
-        <option value="JSON">JSON</option>
-        <option value="TOML">TOML</option>
-        <option value="YAML">YAML</option>
-      </select><br />
       <div class="select-container">
         <fieldset>
           <legend>Options:</legend>
@@ -33,16 +26,18 @@
             <label for="domainName">Domain Name:</label>
             <input type="text" id="domainName" name="domain_name" value="example.com" />
           </div>
-          <input type="checkbox" id="traefikHTTP" name="options" value="Traefik HTTP" />
-          <label for="traefikHTTP">Traefik HTTP</label><br />
-          <input type="checkbox" id="traefikHTTPS" name="options" value="Traefik HTTPS" />
-          <label for="traefikHTTPS">Traefik HTTPS</label><br />
-          <input type="checkbox" id="traefikNoAuth" name="options" value="Traefik NoAuth" />
-          <label for="traefikNoAuth">Traefik NoAuth</label><br />
-          <input type="checkbox" id="volume" name="options" value="Volume" />
-          <label for="volume">Volume</label><br />
-          <input type="checkbox" id="volumeNFS" name="options" value="Volume NFS" />
-          <label for="volumeNFS">Volume NFS</label><br />
+          <div class="checkbox-container">
+            <input type="checkbox" id="traefikHTTP" name="options" value="Traefik HTTP" />
+            <label for="traefikHTTP">Traefik HTTP</label><br />
+            <input type="checkbox" id="traefikHTTPS" name="options" value="Traefik HTTPS" />
+            <label for="traefikHTTPS">Traefik HTTPS</label><br />
+            <input type="checkbox" id="traefikNoAuth" name="options" value="Traefik NoAuth" />
+            <label for="traefikNoAuth">Traefik NoAuth</label><br />
+            <input type="checkbox" id="volume" name="options" value="Volume" />
+            <label for="volume">Volume</label><br />
+            <input type="checkbox" id="volumeNFS" name="options" value="Volume NFS" />
+            <label for="volumeNFS">Volume NFS</label><br />
+          </div>
         </fieldset><br />
       </div>
     </form>
