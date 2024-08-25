@@ -132,3 +132,16 @@ body {
         /* Increase height for better usability on narrow screens */
     }
 }
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .checkbox-item input {
+    margin-right: 10px;
+  }

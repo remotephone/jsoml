@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Traefik Cop</title>
     <link rel="stylesheet" href="static/css/styles.css" />
+
   </head>
   <body>
     <h2>Traefik Cop</h2>
@@ -27,21 +28,30 @@
             <input type="text" id="domainName" name="domain_name" value="example.com" />
           </div>
           <div class="checkbox-container">
-            <input type="checkbox" id="traefikHTTP" name="options" value="Traefik HTTP" />
-            <label for="traefikHTTP">Traefik HTTP</label><br />
-            <input type="checkbox" id="traefikHTTPS" name="options" value="Traefik HTTPS" />
-            <label for="traefikHTTPS">Traefik HTTPS</label><br />
-            <input type="checkbox" id="traefikNoAuth" name="options" value="Traefik NoAuth" />
-            <label for="traefikNoAuth">Traefik NoAuth</label><br />
-            <input type="checkbox" id="volume" name="options" value="Volume" />
-            <label for="volume">Volume</label><br />
-            <input type="checkbox" id="volumeNFS" name="options" value="Volume NFS" />
-            <label for="volumeNFS">Volume NFS</label><br />
+            <div class="checkbox-item">
+              <input type="checkbox" id="traefikHTTP" name="options" value="Traefik HTTP" />
+              <label for="traefikHTTP">Traefik HTTP</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="traefikHTTPS" name="options" value="Traefik HTTPS" />
+              <label for="traefikHTTPS">Traefik HTTPS</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="traefikNoAuth" name="options" value="Traefik NoAuth" />
+              <label for="traefikNoAuth">Traefik NoAuth</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="volume" name="options" value="Volume" />
+              <label for="volume">Volume</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="volumeNFS" name="options" value="Volume NFS" />
+              <label for="volumeNFS">Volume NFS</label>
+            </div>
           </div>
         </fieldset><br />
       </div>
     </form>
     <script src="static/js/traefik_cop.js"></script>
-
   </body>
 </html>

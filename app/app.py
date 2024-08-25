@@ -1,6 +1,7 @@
 import io
 import json
 import logging
+from collections import OrderedDict
 
 import toml
 import yaml
@@ -118,43 +119,45 @@ def modify_docker_compose():
 
         for service_name, service_details in docker_compose["services"].items():
             logging.info("Modifying service: %s", service_name)
-            labels_set = set(service_details.get("deploy", {}).get("labels", []))
+            labels_set = OrderedDict.fromkeys(service_details.get("deploy", {}).get("labels", []))
             volumes_set = set(service_details.get("volumes", []))
-            domain_name = data.get(
-                "domain_name", "example.com"
-            )  # Get the domain name from the request, default to 'example.com'
-
+            domain_name = data.get("domain_name", "example.com")  # Get the domain name from the request, default to 'example.com'
+            
             # Update labels based on options
             if options.get("traefikHTTP"):
                 labels_set.update(
-                    [
+                    OrderedDict.fromkeys([
                         "traefik.enable=true",
                         "traefik.constraint-label=traefik-public",
-                        f"traefik.http.routers.{service_name}.rule=Host(`{service_name}.{domain_name}`)",
-                        f"traefik.http.services.{service_name}.loadbalancer.server.port=<PORT>",
-                    ]
+                        f"traefik.http.routers.http-{service_name}.rule=Host(`{service_name}.{domain_name}`)",
+                        f"traefik.http.routers.http-{service_name}.entrypoints=http",
+                        f"traefik.http.routers.http-{service_name}.middlewares=https-redirect",
+                        f"traefik.http.services.http-{service_name}.loadbalancer.server.port=<PORT>",
+                    ])
                 )
             if options.get("traefikHTTPS"):
                 labels_set.update(
-                    [
+                    OrderedDict.fromkeys([
                         "traefik.enable=true",
                         "traefik.constraint-label=traefik-public",
-                        f"traefik.http.routers.{service_name}.rule=Host(`{service_name}.{domain_name}`)",
-                        f"traefik.http.services.{service_name}.loadbalancer.server.port=<PORT>",
-                        "traefik.http.routers.{service_name}.tls=true",
-                        "traefik.http.routers.{service_name}.tls.certresolver=le",
-                    ]
+                        f"traefik.http.routers.https-{service_name}.rule=Host(`{service_name}.{domain_name}`)",
+                        f"traefik.http.routers.https-{service_name}.entrypoints=https",
+                        "traefik.http.routers.https-{service_name}.tls=true",
+                        "traefik.http.routers.https-{service_name}.tls.certresolver=le",
+                        f"traefik.http.services.https-{service_name}.loadbalancer.server.port=<PORT>",
+                    ])
                 )
             if options.get("traefikNoAuth"):
                 labels_set.update(
-                    [
+                    OrderedDict.fromkeys([
                         "traefik.enable=true",
                         "traefik.constraint-label=traefik-public",
                         f"traefik.http.routers.{service_name}.middlewares=no-auth",
                         f"traefik.http.routers.{service_name}-noauth.rule=Host(`{service_name}-noauth.{domain_name}`)",
                         "traefik.http.routers.{service_name}-noauth.entrypoints=noauth",
-                    ]
+                    ])
                 )
+            
             # Update volumes based on options
             if options.get("volume"):
                 volumes_set.add("/path/to/volume:/path/to/mount")
@@ -174,7 +177,7 @@ def modify_docker_compose():
                 )
 
             # Ensure the 'deploy' and 'volumes' keys are updated or added to the service details
-            service_details.setdefault("deploy", {})["labels"] = list(labels_set)
+            service_details.setdefault("deploy", {})["labels"] = list(labels_set.keys())
             service_details["volumes"] = list(volumes_set)
 
         logging.info("Successfully modified docker-compose file.")
